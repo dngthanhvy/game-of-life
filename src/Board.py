@@ -24,6 +24,14 @@ def _get_neighbours(board, row, col):
             neighbor is not None and neighbor is not board[row][col]]
 
 
+def update_cell(cell):
+    cell.update()
+    return cell
+
+
 class Board:
     def __init__(self, board):
         self.board = _transform_board(board)
+
+    def set_next(self):
+        self.board = [[update_cell(cell) for cell in row] for row in self.board]
