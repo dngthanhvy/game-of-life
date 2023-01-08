@@ -33,5 +33,21 @@ class Board:
     def __init__(self, board):
         self.board = _transform_board(board)
 
-    def set_next(self):
+    def _set_next(self):
         self.board = [[update_cell(cell) for cell in row] for row in self.board]
+
+    def _generate_next(self):
+        for row in range(len(self.board)):
+            for col in range(len(self.board[0])):
+                self.board[row][col].set_next_state()
+        self._set_next()
+
+    def generate(self, n_gens=1):
+        print("Initial generation:")
+        print(self.board)
+        print("\n")
+        for i in range(1, n_gens + 1):
+            self._generate_next()
+            print(f"Generation #{i}:")
+            print(self.board)
+        print(f"\nGenerated {n_gens} generations.")
